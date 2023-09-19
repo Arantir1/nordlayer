@@ -10,7 +10,7 @@ go build -o limit main
 
 ## Run commands
 
-To set limit to default `80.249.99.148` IP with default `100Kbit` bandwidth run: 
+To set limit to default `80.249.99.148` IP with default `100Kbit` bandwidth through default interface `wlp5s0` run: 
 ```
 sudo ./limit create
 ```
