@@ -14,12 +14,17 @@ import (
 
 func main() {
 	// Parse arguments or set default
-	iface_name := flag.String("interface", "wlp5s0", "main interface")
+	iface_name := flag.String("iface", "wlp5s0", "main interface")
 	ip := flag.String("ip", "80.249.99.148", "ip adress for reducing bandwidth")
 	mask := flag.Int("mask", 32, "mask of ip adress")
 	kbits := flag.Int("kbits", 100, "speed in kbits")
 	flag.Parse()
 	cmd := flag.Args()[0]
+
+	if cmd == "help" {
+		help()
+		return
+	}
 
 	// open a rtnetlink socket
 	rtnl, err := tc.Open(&tc.Config{})
@@ -115,4 +120,17 @@ func main() {
 	default:
 		fmt.Println("Command not found!")
 	}
+}
+
+func help() {
+	fmt.Println(
+		`Usage:  limit [ OPTIONS ] COMMAND
+where  
+OPTIONS := { 
+	--iface=eth0   				network interface name
+	--ip=80.249.99.148			IPv4 format address 
+	--mask=32				mask for ip address
+	--kbits=100				bandwidth limit in Kbits
+}
+COMMAND := {create | delete | help}`)
 }
